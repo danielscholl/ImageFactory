@@ -16,8 +16,7 @@ Param (
 )
 
 # Source In Environment Variables for Secret Settings
-. ./QuickStarts/env.ps1
-Get-ChildItem Env:AZURE*
+. ../QuickStarts/env.ps1
 
 if (!$Subscription) {
   if (!$Env:AZURE_SUBSCRIPTION) {throw "SubscriptionId Required" }

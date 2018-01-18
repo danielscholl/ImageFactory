@@ -7,4 +7,4 @@ $Env:AZURE_ADMINUSER = "<local_admin_user>"                                 # Vi
 $Env:AZURE_ADMINPASSWORD = "<local_admin_password>"                         # Virtual Machine Local Admin Password
 
 ###############################################################################################################
-```
+Get-ChildItem Env:AZURE*

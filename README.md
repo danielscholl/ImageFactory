@@ -61,6 +61,7 @@ $Env:AZURE_ADMINPASSWORD = "<local_admin_password>"                         # Vi
 5. Run the Image Factory
 
 ```powershell
+cd Scripts
 ./RunImageFactory.ps1
 ```
 
