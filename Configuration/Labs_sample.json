@@ -1,0 +1,11 @@
+{
+  "Labs": [{
+    "ResourceGroup": "<your_group>",
+    "SubscriptionId": "<your_subscription_id>",
+    "LabName": "<your_lab_name>",
+    "ImagePaths": [
+      "Win10/VS2017.json",
+      "Win2016/SQLServer 2016 Express.json"
+    ]
+  }]
+}
