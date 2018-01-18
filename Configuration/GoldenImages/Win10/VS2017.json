@@ -44,6 +44,16 @@
       "userName": "[parameters('userName')]",
       "password": "[parameters('password')]",
       "isAuthenticationWithSshKey": false,
+      "artifacts": [{
+          "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-chrome')]"
+        },
+        {
+          "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-ssms')]"
+        },
+        {
+          "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-vscode')]"
+        }
+      ],
       "labSubnetName": "[variables('labSubnetName')]",
       "disallowPublicIpAddress": false,
       "storageType": "Standard",

@@ -25,33 +25,31 @@
     "vmId": "[resourceId ('Microsoft.DevTestLab/labs/virtualmachines', parameters('labName'), parameters('newVMName'))]",
     "vmName": "[concat(parameters('labName'), '/', parameters('newVMName'))]"
   },
-  "resources": [
-    {
-      "apiVersion": "2017-04-26-preview",
-      "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "name": "[variables('vmName')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
-        "notes": "Free License: SQL Server 2016 SP1 Express on Windows Server 2016",
-        "galleryImageReference": {
-          "offer": "SQL2016SP1-WS2016",
-          "publisher": "MicrosoftSQLServer",
-          "sku": "Express",
-          "osType": "Windows",
-          "version": "latest"
-        },
-        "size": "[parameters('size')]",
-        "userName": "[parameters('userName')]",
-        "password": "[parameters('password')]",
-        "isAuthenticationWithSshKey": false,
-        "labSubnetName": "[variables('labSubnetName')]",
-        "disallowPublicIpAddress": false,
-        "storageType": "Standard",
-        "allowClaim": false
-      }
+  "resources": [{
+    "apiVersion": "2017-04-26-preview",
+    "type": "Microsoft.DevTestLab/labs/virtualmachines",
+    "name": "[variables('vmName')]",
+    "location": "[resourceGroup().location]",
+    "properties": {
+      "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
+      "notes": "Free License: SQL Server 2017 on Windows Server 2016",
+      "galleryImageReference": {
+        "offer": "SQL2017-WS2016",
+        "publisher": "MicrosoftSQLServer",
+        "sku": "SQLDEV",
+        "osType": "Windows",
+        "version": "latest"
+      },
+      "size": "[parameters('size')]",
+      "userName": "[parameters('userName')]",
+      "password": "[parameters('password')]",
+      "isAuthenticationWithSshKey": false,
+      "labSubnetName": "[variables('labSubnetName')]",
+      "disallowPublicIpAddress": false,
+      "storageType": "Standard",
+      "allowClaim": false
     }
-  ],
+  }],
   "outputs": {
     "labVMId": {
       "type": "string",

@@ -19,7 +19,7 @@ Param (
 . ./QuickStarts/env.ps1
 Get-ChildItem Env:AZURE*
 
-if (!$Subscription) { 
+if (!$Subscription) {
   if (!$Env:AZURE_SUBSCRIPTION) {throw "SubscriptionId Required" }
   else {$Subscription = $Env:AZURE_SUBSCRIPTION}
 }
@@ -37,7 +37,7 @@ if ( !$AdminPassword) {
 }
 
 # Set Variables
-$ConfigFiles = "./Configuration"
+$ConfigFiles = "../Configuration"
 
 Add-AzureRmAccount
 Select-AzureRmSubscription -SubscriptionId $Subscription
