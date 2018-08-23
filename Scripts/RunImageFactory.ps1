@@ -16,7 +16,7 @@ Param (
 )
 
 # Source In Environment Variables for Secret Settings
-. ../QuickStarts/env.ps1
+. ../QuickStarts/.env.ps1
 
 if (!$Subscription) {
   if (!$Env:AZURE_SUBSCRIPTION) {throw "SubscriptionId Required" }
@@ -38,20 +38,20 @@ if ( !$AdminPassword) {
 # Set Variables
 $ConfigFiles = "../Configuration"
 
-Add-AzureRmAccount
+# Add-AzureRmAccount
 Select-AzureRmSubscription -SubscriptionId $Subscription
 
 
 # Scrape source code control for json files + create all VMs discovered
-.\MakeGoldenImageVMs.ps1 -ConfigurationLocation $ConfigFiles `
-  -DevTestLabName $DevTestLabName `
-  -machineUserName $AdminUserName `
-  -machinePassword (ConvertTo-SecureString -String "$AdminPassword" -AsPlainText -Force) `
-  -StandardTimeoutMinutes 60 `
-  -vmSize "Standard_A3"
+# .\MakeGoldenImageVMs.ps1 -ConfigurationLocation $ConfigFiles `
+#   -DevTestLabName $DevTestLabName `
+#   -machineUserName $AdminUserName `
+#   -machinePassword (ConvertTo-SecureString -String "$AdminPassword" -AsPlainText -Force) `
+#   -StandardTimeoutMinutes 60 `
+#   -vmSize "Standard_A3"
 
-# For all running VMs, save as images
-.\SnapImagesFromVMs.ps1 -DevTestLabName $DevTestLabName
+# # For all running VMs, save as images
+# .\SnapImagesFromVMs.ps1 -DevTestLabName $DevTestLabName
 
 # For all images, distribute to all labs who have 'signed up' for those images
 .\DistributeImages.ps1 -ConfigurationLocation $ConfigFiles `

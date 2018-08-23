@@ -1,4 +1,4 @@
-﻿function SelectSubscription($subId){
+function SelectSubscription($subId){
     # switch to another subscription assuming it's not the one we're already on
     if((Get-AzureRmContext).Subscription.Id -ne $subId){
         Write-Output "Switching to subscription $subId"
@@ -124,7 +124,7 @@ function EnsureRootContainerExists ($labStorageInfo)
 
 function GetImageInfosForLab ($DevTestLabName) 
 {
-    $lab = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs' | Where-Object { $_.Name -eq $DevTestLabName}
+    $lab = Get-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs' | Where-Object { $_.Name -eq $DevTestLabName}
     $labRgName= $lab.ResourceGroupName
     $sourceLab = Get-AzureRmResource -ResourceName $DevTestLabName -ResourceGroupName $labRgName -ResourceType 'Microsoft.DevTestLab/labs'
     $storageAcctValue = $sourceLab.Properties.artifactsStorageAccount

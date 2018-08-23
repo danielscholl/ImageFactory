@@ -1,4 +1,4 @@
-﻿param
+param
 (
     [Parameter(Mandatory=$true, HelpMessage="The name of the DevTest Lab")]
     [string] $DevTestLabName
@@ -9,7 +9,7 @@ Import-Module $modulePath
 
 SaveProfile
 
-$lab = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs' | Where-Object { $_.Name -eq $DevTestLabName}
+$lab = Get-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs' | Where-Object { $_.Name -eq $DevTestLabName}
 $labRgName= $lab.ResourceGroupName
 $labStorageInfo = GetLabStorageInfo $lab
 EnsureRootContainerExists $labStorageInfo
@@ -103,7 +103,7 @@ $storeVHDBlock = {
     
     $vhdFileName = $copyObject.fileId + ".vhd"
     $jsonFileName = $copyObject.fileId + ".json"
-    $jsonFilePath = Join-Path $env:TEMP $jsonFileName
+    $jsonFilePath = Join-Path '/home/daniel/temp' $jsonFileName
     $imageName = $copyObject.imageName
     Write-Output "Storing image: $imageName"
     $vhdInfo = @{

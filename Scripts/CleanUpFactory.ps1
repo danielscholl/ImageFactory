@@ -1,4 +1,4 @@
-﻿param
+param
 (
     [Parameter(Mandatory=$true, HelpMessage="The name of the DevTest Lab to clean up")]
     [string] $DevTestLabName
@@ -7,7 +7,7 @@ $modulePath = Join-Path (Split-Path ($Script:MyInvocation.MyCommand.Path)) "Dist
 Import-Module $modulePath
 SaveProfile
 
-$allVms = Find-AzureRmResource -ResourceType "Microsoft.DevTestLab/labs/virtualMachines" -ResourceNameContains $DevTestLabName
+$allVms = Get-AzureRmResource -ResourceType "Microsoft.DevTestLab/labs/virtualMachines" -ResourceNameContains $DevTestLabName
 $jobs = @()
 
 $deleteVmBlock = {
