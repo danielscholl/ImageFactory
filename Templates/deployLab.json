@@ -2,8 +2,9 @@
   "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "labName": {
-      "type": "string"
+    "LabName": {
+      "type": "string",
+      "defaultValue": "ImageFactory"
     }
   },
   "resources": [{
@@ -16,10 +17,10 @@
     },
     "resources": [{
       "apiVersion": "2016-05-15",
-      "name": "[concat('Dtl', parameters('labName'))]",
+      "name": "[concat(parameters('LabName'), '-vnet')]",
       "type": "virtualnetworks",
       "dependsOn": [
-        "[resourceId('Microsoft.DevTestLab/labs', parameters('labName'))]"
+        "[resourceId('Microsoft.DevTestLab/labs', parameters('LabName'))]"
       ],
       "properties": {}
     }]
