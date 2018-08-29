@@ -1,6 +1,6 @@
 # Image Factory
 
-This Repository is to play with Image Factories provided by Azure DevTest Labs.
+This Repository is a reworked ImageFactory script base upgraded to PowerShell AzureRM version 6.7.
 
 
 1. Setup a Private env.ps1 file to source in private settings from environment variabls for use in the project.
@@ -23,22 +23,23 @@ $Env:AZURE_ADMINPASSWORD = "<local_admin_password>"                         # Vi
 
 ```powershell
 # Source into the shell your environment variables
-. .\QuickStarts\env.ps1 
+. .\env.ps1 
 
 # Build a DevTest Lab
-.\QuickStarts\iac-devtestLab\install.ps1 -ResourceGroupName imageFactory
+./Make-Lab.ps1
 ```
 
-3. Setup a DevTest Lab to use as a Personal Lab
-
->Note: This can be in an alternate subscription as long as the tenant of the logged in user has access to the subscription.
+3. Setup a DevTest Lab(s) to use as a Personal Lab
 
 ```powershell
 # Source into the shell your environment variables
-. .\QuickStarts\env.ps1 
+. .\env.ps1 
 
-# Build a DevTest Lab
-.\QuickStarts\iac-devtestLab\install.ps1 -ResourceGroupName myLab
+# Build a Development Lab
+.\Make-Lab -ResourceGroupName DevLab
+
+# Build a Test Lab
+.\Make-Lab -ResourceGroupName TestLab
 ```
 
 4. Subscribe your lab for deployment by defining your lab and desired images into the Labs.json file.
@@ -47,12 +48,18 @@ $Env:AZURE_ADMINPASSWORD = "<local_admin_password>"                         # Vi
 ```javascript
 {
   "Labs": [{
-    "ResourceGroup": "<your_lab_group>",
     "SubscriptionId": "<your_subscription_id>",
-    "LabName": "<your_lab_name>",
+    "LabName": "DevLab",
     "ImagePaths": [
       "Win10/VS2017.json",
       "Win2016/Datacenter.json"
+    ]
+  },
+  {
+    "SubscriptionId": "<your_subscription_id>",
+    "LabName": "TestLab",
+    "ImagePaths": [
+      "Win10/VS2017.json"
     ]
   }]
 }
@@ -61,12 +68,10 @@ $Env:AZURE_ADMINPASSWORD = "<local_admin_password>"                         # Vi
 5. Run the Image Factory
 
 ```powershell
-cd Scripts
-./RunImageFactory.ps1
+./Run-Factory.ps1
 ```
 
-_Track the Blog Series to see how you can integrate into VSTS for no touch automation builds._
+_Read the Blog Series to see how you can integrate into VSTS for no touch automation builds._
 
-- [Image Factory Part 1](https://blogs.msdn.microsoft.com/devtestlab/2016/09/14/introduction-get-vms-ready-in-minutes-by-setting-up-image-factory-in-azure-devtest-labs/)
+- [Image Factory Blog Series](https://blogs.msdn.microsoft.com/devtestlab/tag/image-factory-series/)
 
-- [Image Factory Part 2](https://blogs.msdn.microsoft.com/devtestlab/2017/10/25/image-factory-part-2-setup-vsts-to-create-vms-based-on-devtest-labs/)
