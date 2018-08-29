@@ -175,16 +175,15 @@ function GetImageInfosForLab ($DevTestLabName)
     return $sourceImageInfos
 }
 
-function getTagValue($resource, $tagName){
+function GetTagValue($resource, $tagName) {
   $result = $null
-  if ($resource.Tags){
-      $result = $resource.Tags | Where-Object {$_.Name -eq $tagName}
-      if($result){
-          $result = $result.Value
-      }
-      else {
-          $result = $resource.Tags[$tagName]
-      }
+
+  if ($resource.Tags) {
+    $result = $resource.Tags | Where-Object {$_.Name -eq $tagName}
+
+    if($result) { $result = $result.Value }
+    else { $result = $resource.Tags[$tagName] }
+
   }
   $result
 }

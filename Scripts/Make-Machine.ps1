@@ -42,10 +42,6 @@ Param
 
 if (Test-Path $ModulePath) { . $ModulePath }
 
-## Looks like Loading the profile actually looses login context in AzureRM v 6.7.0?
-# Write-Color -Text "Retrieving Logged in Context..." -Color Green
-# LoadProfile "profile.json"
-
 Write-Color -Text "`r`n---------------------------------------------------- "-Color Yellow
 Write-Color -Text "         LabVm ARM Template Deployment Start         " -Color Green
 Write-Color -Text "---------------------------------------------------- "-Color Yellow

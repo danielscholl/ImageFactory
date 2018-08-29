@@ -25,10 +25,13 @@ Param (
   [securestring]$AdminPassword = (ConvertTo-SecureString -String "$Env:AZURE_ADMINPASSWORD" -AsPlainText -Force),
 
   [Parameter(HelpMessage="DevTest Lab Name")]
-  [string]$DevTestLabName = "ImageFactory"
+  [string]$DevTestLabName = "ImageFactory",
+
+  [Parameter(HelpMessage="Show Environment Variables")]
+  [string]$ShowEnv = $false
 )
 
-Get-ChildItem Env:AZURE*
+if($ShowEnv -eq $true) {Get-ChildItem Env:AZURE*}
 
 # Test for Required Environment Settings
 if (!$Subscription) {
@@ -63,28 +66,27 @@ LoginAzure $Subscription
 ##############################
 
 # Scrape source code control for json files + create all VMs discovered
-.\Scripts\Make-GoldImageVMs.ps1 -ConfigurationLocation $ConfigFiles `
-  -DevTestLabName $DevTestLabName `
-  -AdminUserName $AdminUserName `
-  -AdminPassword $AdminPassword `
-  -StandardTimeoutMinutes 60
+# .\Scripts\Make-GoldImageVMs.ps1 -ConfigurationLocation $ConfigFiles `
+#   -DevTestLabName $DevTestLabName `
+#   -AdminUserName $AdminUserName `
+#   -AdminPassword $AdminPassword `
+#   -StandardTimeoutMinutes 60
 
 # For all created VMs, save as images
-.\Scripts\Snap-Image.ps1 -DevTestLabName $DevTestLabName
+# .\Scripts\Snap-Image.ps1 -DevTestLabName $DevTestLabName
 
 # For all images, distribute to all labs that have 'signed up' for the image
-.\Scripts\Distribute-Image.ps1 -ConfigurationLocation $ConfigFiles `
-  -SubscriptionId $Env:AZURE_SUBSCRIPTION `
-  -DevTestLabName $DevTestLabName `
-  -MaxJobs 20
+# .\Scripts\Distribute-Image.ps1 -ConfigurationLocation $ConfigFiles `
+#   -SubscriptionId $Subscription `
+#   -DevTestLabName $DevTestLabName `
+#   -MaxJobs 20
 
+# Clean up any leftover stopped VMs in the factory
+#.\Scripts\CleanUp-Factory.ps1 -DevTestLabName $DevTestLabName
 
 ##  TODO STILL
-# Clean up any leftover stopped VMs in the factory
-# .\CleanUp-Factory.ps1 -DevTestLabName $DevTestLabName
-
 # Retire all 'old' images from the factory lab and all other connected labs (cascade deletes)
-# .\Retire-Images.ps1  -ConfigurationLocation  $ConfigFiles `
-#   -SubscriptionId $Env:AZURE_SUBSCRIPTION `
-#   -DevTestLabName $DevTestLabName `
-#   -ImagesToSave 2
+.\Scripts\Retire-Images.ps1  -ConfigurationLocation  $ConfigFiles `
+  -SubscriptionId $Subscription `
+  -DevTestLabName $DevTestLabName `
+  -ImagesToSave 2

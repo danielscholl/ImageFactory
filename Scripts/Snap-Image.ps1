@@ -40,7 +40,7 @@ foreach($labVm in $labVMs)
   # make sure we have a container in the storage account that matches the imagepath and date for this vhd
 
   # Get the Tag from the Machine that stored our Image Path
-  $imagePath = getTagValue $labVm 'ImagePath'
+  $imagePath = GetTagValue $labVm 'ImagePath'
   if(!$imagePath) {
       Write-Color -Text "Ignoring ", "$($labVm.Name)", " because it does not have the ImagePath tag" -Color green, yellow, green
       continue
