@@ -30,7 +30,6 @@ function Write-Color([String[]]$Text, [ConsoleColor[]]$Color = "White", [int]$St
     Write-Output "[$([datetime]::Now.ToString($TimeFormat))]$TextToFile" | Out-File $LogFile -Encoding unicode -Append
   }
 }
-
 function LoginAzure ([string] $Subscription) {
   # Required Argument $1 = Subscription
 
@@ -53,7 +52,6 @@ function CreateResourceGroup([string]$ResourceGroupName, [string]$Location) {
     Write-Color -Text "Resource Group ", "$ResourceGroupName ", "already exists." -Color Green, Red, Green
   }
 }
-
 function SelectSubscription($Subscription) {
   # Required Argument $1 = Subscription
 
@@ -62,7 +60,6 @@ function SelectSubscription($Subscription) {
     Set-AzureRmContext -SubscriptionId $Subscription | Out-Null
   }
 }
-
 function makeUpdatedTemplateFile ($origTemplateFile, $outputFile)
 {
   $armTemplate = Get-Content -Raw -Encoding Ascii $origTemplateFile | ConvertFrom-Json
@@ -104,8 +101,6 @@ function makeUpdatedTemplateFile ($origTemplateFile, $outputFile)
   Write-Color -Text "Writing modified ARM template to ", "$outputFile" -Color Green, Cyan
   ($armTemplate | ConvertTo-Json -Depth 100 | % { [System.Text.RegularExpressions.Regex]::Unescape($_) }).Replace('\', '\\') | Out-File $outputFile
 }
-
-
 function GetStorageInfo ($lab)
 {
     $labRgName= $lab.ResourceGroupName
@@ -123,7 +118,6 @@ function GetStorageInfo ($lab)
     }
     return $result
 }
-
 function EnsureRootContainerExists ($labStorageInfo)
 {
     $storageContext = New-AzureStorageContext -StorageAccountName $labStorageInfo.storageAcctName -StorageAccountKey $labStorageInfo.storageAcctKey
@@ -135,7 +129,6 @@ function EnsureRootContainerExists ($labStorageInfo)
         $rootContainer = New-AzureStorageContainer -Context $storageContext -Name $rootContainerName
     }
 }
-
 function GetImageInfosForLab ($DevTestLabName)
 {
     $lab = Get-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs' | Where-Object { $_.Name -eq $DevTestLabName}
@@ -174,7 +167,6 @@ function GetImageInfosForLab ($DevTestLabName)
 
     return $sourceImageInfos
 }
-
 function GetTagValue($resource, $tagName) {
   $result = $null
 
@@ -187,7 +179,6 @@ function GetTagValue($resource, $tagName) {
   }
   $result
 }
-
 function GetImageName ($imagePathValue)
 {
     $splitImagePath = $imagePathValue.Split('\')
@@ -206,7 +197,6 @@ function GetImageName ($imagePathValue)
     $imagename = $imagename +  "-" + (Get-Date -Format 'MMM-d-yyyy')
     return $imagename
 }
-
 function ShouldCopyImageToLab ($lab, $imagePathValue)
 {
   $retval = $false
@@ -218,7 +208,6 @@ function ShouldCopyImageToLab ($lab, $imagePathValue)
   }
   $retval
 }
-
 function validateImages($labs)
 {
   # Iterate through each of the ImagePath entries in the lab and make sure that it points to at least one existing json file
