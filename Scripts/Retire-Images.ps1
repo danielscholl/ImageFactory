@@ -97,7 +97,7 @@ $deleteVM_ScriptBlock = {
     }
 
     Write-Output "Deleting Image: $($imageToDelete.ResourceName)"
-    #Remove-AzureRmResource -ResourceName $imageToDelete.ResourceName -ResourceGroupName $imageToDelete.ResourceGroupName -ResourceType 'Microsoft.DevTestLab/labs/customImages' -ApiVersion '2016-05-15' -Force
+    Remove-AzureRmResource -ResourceName $imageToDelete.ResourceName -ResourceGroupName $imageToDelete.ResourceGroupName -ResourceType 'Microsoft.DevTestLab/labs/customImages' -ApiVersion '2016-05-15' -Force
     Write-Output "Deleting Image: $($imageToDelete.ResourceName)"
 }
 
@@ -140,7 +140,7 @@ foreach ($lab in $sortedLabList) {
   }
 
   foreach($image in $labImages){
-    #If this image is for an ImagePath that no longer exists then delete it. They must have removed this image from the factory
+    # If this image is for an ImagePath that no longer exists then delete it. They must have removed this image from the factory
     $imagePath = getTagValue $image 'ImagePath'
     $resName = $image.ResourceName
 

@@ -2,6 +2,58 @@
 
 This Repository is a reworked ImageFactory script base upgraded to PowerShell AzureRM version 6.7.
 
+_Read the Fantastic Blog Series to see how you can integrate into VSTS for no touch automation builds._
+
+- [Image Factory Blog Series](https://blogs.msdn.microsoft.com/devtestlab/tag/image-factory-series/)
+
+
+__Requirements:__
+
+1. [Windows Powershell](https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-windows-powershell?view=powershell-5.1)
+
+```powershell
+  $PSVersionTable.PSVersion
+
+  # Result
+  Major  Minor  Build  Revision
+  -----  -----  -----  --------
+  5      1      17134  248
+```
+
+2. [Azure PowerShell Modules](https://www.powershellgallery.com/packages/Azure/5.1.1)
+
+```powershell
+  Get-Module AzureRM -list | Select-Object Name,Version
+
+  # Result
+  Name  Version
+  ----  -------
+  Azure 6.7.0
+```
+
+3. [AzureRM Powershell Modules](https://www.powershellgallery.com/packages/AzureRM/5.1.1)
+
+```powershell
+  Get-Module AzureRM.* -list | Select-Object Name,Version
+
+  # Filtered Results
+  Name                                  Version
+  ----                                  -------
+  AzureRM.Compute                       5.5.0
+  AzureRM.DevTestLabs                   4.0.7
+  AzureRM.KeyVault                      5.1.1
+  AzureRM.Network                       5.4.1
+  AzureRM.Profile                       5.4.0
+  AzureRM.Resources                     6.4.0
+  AzureRM.Storage                       5.0.2
+```
+
+4. Install Required PowerShell Modules if needed
+
+```powershell
+Install-Module AzureRM -RequiredVersion 6.7.0
+Import-Module AzureRM -RequiredVersion 6.7.0
+```
 
 1. Setup a Private env.ps1 file to source in private settings from environment variabls for use in the project.
 
@@ -71,7 +123,5 @@ $Env:AZURE_ADMINPASSWORD = "<local_admin_password>"                         # Vi
 ./Run-Factory.ps1
 ```
 
-_Read the Blog Series to see how you can integrate into VSTS for no touch automation builds._
 
-- [Image Factory Blog Series](https://blogs.msdn.microsoft.com/devtestlab/tag/image-factory-series/)
 
